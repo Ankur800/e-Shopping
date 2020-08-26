@@ -261,7 +261,7 @@
                         success: function(response){
                             if(!!response){
                                 if(response.is_logined === true){
-                                    location.href = "/welcome";
+                                    location.href = "/user/products";
                                 } else {
                                     $("#signup-password").val("");
                                     $("#signup-error").html(response.message);

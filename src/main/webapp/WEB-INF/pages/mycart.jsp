@@ -7,21 +7,56 @@
 <html>
     <style>
 
-        *,
-        *::before,
-        *::after {
-          box-sizing: border-box;
-          margin: 0;
-          padding: 0;
+        .go-to-store{
+              padding: 10px;
+              border: 0;
+              color: #fff;
+              background: #d35400;
+              margin-left: -5px;
+              margin-top: 20px;
+              border-radius: 10px 10px 10px 10px;
+              border: 1px solid #333;
+              font-size: 18px;
+              height:50px;
+              width: 180px;
+              cursor: pointer
         }
+        .remove-from-cart{
+              padding: 10px;
+              border: 0;
+              color: #fff;
+              background: #d35400;
+              margin-left: -5px;
+              margin-top: 20px;
+              border-radius: 10px 10px 10px 10px;
+              border: 1px solid #333;
+              font-size: 18px;
+              height:50px;
+              width: 180px;
+              cursor: pointer
+        }
+        .cross{
+              position: absolute;
+              top: 10px;
+              left: 10px;
+              background: #555;
+              color: #ddd;
+              font-weight: bold;
+              width: 22px;
+              height: 22px;
+              text-align: center;
+              border-radius: 11px;
+        }
+
+
         html {
           font-family: "Lato", sans-serif;
           font-size: 16px;
-          color: #eee;
+          color: #fff;
         }
         :root {
-          --bg-color: #1f2029;
-          --border-color: #333;
+          --bg-color: #576574;
+          --border-color: #ee5253;
           --width: 50%;
         }
         body {
@@ -36,17 +71,6 @@
           position: absolute;
           pointer-events: none;
         }
-        .cursor::after {
-          content: "";
-          width: 25px;
-          height: 25px;
-          position: absolute;
-          border: 8px solid gray;
-          border-radius: 50%;
-          opacity: 0.5;
-          top: -1px;
-          left: -1px;
-        }
         .products {
           display: flex;
           flex-direction: column;
@@ -56,30 +80,20 @@
         }
         .products > div.product {
           display: flex;
-          width: var(--width);
+          width: 50%;
           height:157px;
           margin: 40px 0 0 25px;
           padding: 25px 0 25px 25px;
-          border: 2px solid var(--border-color);
+          border: 2px solid #ee5253;
           border-radius: 5px;
           position: relative;
-          transition: all 0.1s linear;
+
         }
         section.products > div.product article sub{
           overflow:hidden;
           text-overflow:ellipsis;
         }
-        section.products > div.product article > label.title::before {
-          content: " ";
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          cursor: pointer;
-          display: block;
-          z-index: 2;
-        }
+
         .products div > img {
           width: 100px;
           height: 100px;
@@ -161,93 +175,8 @@
         .total-price ul li:last-child > span + span > b {
         font-size:1.1em;
         }
-        .delete,
-        .total-price > button, .total-price > a > button {
-          width: 100px;
-          height: 50px;
-          margin: 25px 0 25px 0;
-          cursor: pointer;
-          border: 2px solid var(--border-color);
-          background-color: var(--bg-color);
-          color: inherit;
-          transition: all 0.5s linear;
-        }
-        .total-price > a > button {
-          margin-left: 15px;
-        }
-        .total-price > .delete {
-          border:none;
-          background-color: #c71d28;
-        }
-        button:focus {
-          outline: none;
-        }
-        @keyframes cursorAnim {
-          0% {
-            transform: scale(1);
-          }
-          50% {
-            transform: scale(3);
-          }
-          100% {
-            transform: scale(1);
-            opacity: 0;
-          }
-        }
 
-        .expand {
-          animation: cursorAnim 0.5s forwards;
-          border: 1px solid var(--border-color);
-        }
-        @keyframes shake {
-          0% {
-            transform: translate(1px, 1px);
-          }
-          10% {
-            transform: translate(-1px, -2px);
-          }
-          20% {
-            transform: translate(-3px, 0px);
-          }
-          30% {
-            transform: translate(3px, 2px);
-          }
-          40% {
-            transform: translate(1px, -1px);
-          }
-          50% {
-            transform: translate(-1px, 2px);
-          }
-          60% {
-            transform: translate(-3px, 1px);
-          }
-          70% {
-            transform: translate(3px, 1px);
-          }
-          80% {
-            transform: translate(-1px, -1px);
-          }
-          90% {
-            transform: translate(1px, 2px);
-          }
-          100% {
-            transform: translate(1px, -2px);
-          }
-        }
-        @keyframes remove {
-          from {
-            transform: translateX(0);
-          }
-          50% {
-            transform: translateX(-1000px);
-          }
-          to {
-            opacity: 0;
-          }
-        }
-        .not-select {
-          animation: shake 0.5s;
-        }
+
         @media screen and (max-width:695px) {
           .buy {
             position:relative;
@@ -288,6 +217,7 @@
                   <sub></sub>
                   <span class="price">${product.price}&#x20b9;</span>
                 </article>
+                <button class="remove-from-cart" product-id="${product.id}">Remove from Cart</button>
               </div>
 
           </c:forEach>
@@ -298,15 +228,20 @@
               <h4>Order Summary</h4>
               <ul>
 
+              <c:set var="totalPrice" value="0" scope="page" />
+
               <c:forEach var="product" items="${PRODUCTS}">
+
+                <c:set var="totalPrice" value="${totalPrice + product.price}" scope="page"/>
+
                 <li><span>Order 1</span><span>${product.price}&#x20b9;</span></li>
               </c:forEach>
 
 
-                <li><span><b>Total Price</b></span><span><b>totalPriceHere &#x20b9;</b></span></li>
+                <li><span><b>Total Price</b></span><span><b>${totalPrice} &#x20b9;</b></span></li>
               </ul>
-              <button class="delete" onclick="deleteProduct()">Delete</button>
-              <button> Buy</button></a>
+              <button class="go-to-store">Back to Store</button>
+              <button class="go-to-store"> Buy</button></a>
             </div>
           </section>
         </section>
@@ -314,6 +249,34 @@
 
     </body>
 
+    <script>
+        $(".remove-from-cart").click(function(event){
 
+             var productId = this.getAttribute("product-id");
+             var button = this;
+
+             $.ajax({
+                    type: "POST",
+                    url: "/user/remove-from-cart",
+                    data: productId,
+                    success: function(response){
+                        if(!!response){
+                           location.href = "/user/mycart";
+                        }
+                    },
+                    contentType: 'application/json'
+             });
+
+
+        });
+
+    </script>
+
+    <script>
+            $(".go-to-store").click(function(event){
+                location.href = "/user/products";
+            });
+
+        </script>
 
 </html>
