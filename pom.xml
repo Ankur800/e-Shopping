@@ -399,7 +399,7 @@
             <properties>
                 <DB_URL>jdbc:postgresql://localhost:5432/</DB_URL>
                 <BASE_DIR>FILL BASE DIR</BASE_DIR>
-                <DB_NAME>twitter</DB_NAME>
+                <DB_NAME>e-shopping</DB_NAME>
                 <DB_USERNAME>postgres</DB_USERNAME>
                 <DB_PASSWORD>postgres</DB_PASSWORD>
                 <SERVER_DOMAIN>localhost:8080</SERVER_DOMAIN>
@@ -410,8 +410,8 @@
             <id>LOCAL-ANKUR</id>
             <properties>
                 <DB_URL>jdbc:postgresql://localhost:5432/</DB_URL>
-                <BASE_DIR>D:\coding-mafia\helix\helix</BASE_DIR>
-                <DB_NAME>twitter</DB_NAME>
+                <BASE_DIR>/home/ankur/coding-club-FSD/e-shopping</BASE_DIR>
+                <DB_NAME>e-shopping</DB_NAME>
                 <DB_USERNAME>postgres</DB_USERNAME>
                 <DB_PASSWORD>postgres</DB_PASSWORD>
                 <SERVER_DOMAIN>localhost:8080</SERVER_DOMAIN>
